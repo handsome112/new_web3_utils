@@ -1,0 +1,25 @@
+<%- include(pathviews + '/partials/header');%>
+
+<div class="container">
+    <div class="text-center">
+      <h1>Sign Message</h1>
+        <p id="wallet" hidden><%=wallet%></p>
+        <br/>
+        <label for="msg">Message</label>
+        <input type="text" id="msg">
+        <br/><br/>
+        <button
+                type="button"
+                class="btn btn-large"
+                id="eth"
+                onclick="sign()"
+        >
+            Sign Message
+        </button>
+        <br/><br/>
+        <p>The signature by your wallet is</p>
+        <p id="signature"></p>
+    </div>
+</div>
+
+<%- include(pathviews + '/partials/footer');%>

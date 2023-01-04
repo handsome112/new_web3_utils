@@ -1,0 +1,60 @@
+<%- include(pathviews + '/partials/header'); %>
+<div class="container">
+    <div class="text-center">
+        <h1>Invoice Management</h1>
+        <p id="wallet" hidden><%= wallet %></p>
+        <br/><br/>
+        <h3>Create Invoice</h3>
+        <p id="create-notification"></p>
+        <label for="buyer">Buyer</label>
+        <input type="text" id="buyer">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount">
+        <button type="button" class="btn btn-large" onclick="createInvoice()">Send Invoice</button>
+        <br/><br/>
+        <% if(receivedInvoices.length) { %>
+            <div>
+                <h3>Received Invoices</h3>
+                <p id="pay-notification"></p>
+                <%
+                receivedInvoices.map((invoice, index) => { %>
+                    <p>
+                        <span><%= invoice.seller %></span>
+                        <span style="margin-left: 50px;"><%= invoice.amount %>ETH</span>
+                        <button type="button" class="btn btn-large" style="margin-left: 50px;"
+                                onclick="payInvoiceFunc(<%= index %>)" <%= invoice.paid ? 'disabled' : '' %>><%= invoice.paid ? 'Paid' : 'Pay' %></button>
+                    </p>
+                <% })
+                %>
+            </div>
+        <% } %>
+
+        <% if(sentInvoices.length) { %>
+            <div>
+                <h3>Invoices Sent</h3>
+                <%
+                sentInvoices.map((invoice, index) => { %>
+                    <p>
+                        <span><%= invoice.buyer %></span>
+                        <span style="margin-left: 50px;"><%= invoice.amount %>ETH</span>
+                        <button type="button" class="btn btn-large" style="margin-left: 50px;"
+                                onclick="payInvoice(<%= index %>)"
+                                disabled><%= invoice.paid ? 'Paid' : 'Pending' %></button>
+                    </p>
+                <% })
+                %>
+            </div>
+        <% } %>
+    </div>
+</div>
+<script>
+
+    async function payInvoiceFunc(index) {
+        const wallet = document.getElementById('wallet').innerText;
+        const invoices = <%- JSON.stringify(receivedInvoices) %>
+            console.log(invoices[index].seller, invoices[index].amount)
+        const {seller, amount, _id} = invoices[index];
+        await payInvoice(seller, amount, _id)
+    }
+</script>
+<%- include(pathviews + '/partials/footer'); %>

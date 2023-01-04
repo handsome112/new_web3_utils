@@ -1,0 +1,54 @@
+<%- include(pathviews + '/partials/header');%>
+<div class="container">
+    <div class="text-center">
+        <h1>Pay with MassPay</h1>
+        <br>
+        <label for="amount">Amount</label>
+        <input type="number" id="amount">
+        <label for="currency">Currency</label>
+        <select id="currency">
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="CAD">CAD</option>
+        </select>
+        <br>
+        <label for="seller">Seller</label>
+        <input type="text" id="seller">
+        <label for="app_id">App ID</label>
+        <input type="text" id="app_id">
+        <br>
+        <button
+                type="button"
+                class="btn btn-large"
+                id="login-btn"
+                onclick="checkout()"
+        >
+            Checkout
+        </button>
+        <%if (noti) { %>
+          <h1><%=noti%></h1>
+        <%}%>
+        <h1></h1>
+    </div>
+</div>
+
+<script>
+    async function checkout() {
+        const amount = document.getElementById('amount').value;
+        const currency = document.getElementById('currency').value;
+        const seller = document.getElementById('seller').value;
+        const app_id = document.getElementById('app_id').value;
+        console.log(amount, currency, seller, app_id)
+        const response = await fetch("/paypal/create-order", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({amount, currency, seller, app_id})
+        });
+        const data = await response.json();
+        window.location.href = data.links[1].href
+    }
+</script>
+<%- include(pathviews + '/partials/footer');%>
