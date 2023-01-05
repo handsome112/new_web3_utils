@@ -7,13 +7,12 @@ const {paypal : config} = r('/config/keys');
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': config.PAYPAL_API_CLIENT,
-    'client_secret': config.PAYPAL_API_SECRET
+    'client_id': config.API_CLIENT,
+    'client_secret': config.API_SECRET
 });
 
 const testCreate = (req, res) => {
     const {amount, currency, seller, app_id} = req.body;
-    console.log("---------------------------handsome---------------------------------");
     var create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -58,7 +57,6 @@ const testCreate = (req, res) => {
 const createOrder = async (req, res) => {
     console.log('create order');
     const {amount, currency, seller, app_id} = req.body;
-    console.log(amount, currency, seller, app_id, req.body)
     try {
         const order = {
             intent: "CAPTURE",
@@ -88,6 +86,8 @@ const createOrder = async (req, res) => {
         const params = new URLSearchParams();
         params.append("grant_type", "client_credentials");
 
+        
+
         // Generate an access token
         const {
             data: { access_token },
@@ -99,17 +99,15 @@ const createOrder = async (req, res) => {
                     "Content-Type": "application/x-www-form-urlencoded",
                 },
                 auth: {
-                    username: config.PAYPAL_API_CLIENT,
-                    password: config.PAYPAL_API_SECRET,
+                    username: config.API_CLIENT,
+                    password: config.API_SECRET,
                 },
             }
         );
 
-        console.log(access_token);
-
         // make a request
         const response = await axios.post(
-            `${config.PAYPAL_API}/v2/checkout/orders`,
+            `${config.API}/v2/checkout/orders`,
             order,
             {
                 headers: {
@@ -117,8 +115,6 @@ const createOrder = async (req, res) => {
                 },
             }
         );
-
-        console.log(response.data);
 
         return res.json(response.data);
     } catch (error) {
@@ -132,12 +128,12 @@ const captureOrder = async (req, res) => {
 
     try {
         const response = await axios.post(
-            `${config.PAYPAL_API}/v2/checkout/orders/${token}/capture`,
+            `${config.API}/v2/checkout/orders/${token}/capture`,
             {},
             {
                 auth: {
-                    username: config.PAYPAL_API_CLIENT,
-                    password: config.PAYPAL_API_SECRET,
+                    username: config.API_CLIENT,
+                    password: config.API_SECRET,
                 },
             }
         );
@@ -163,6 +159,6 @@ paypalRouter.get('/', (req, res) => {
 
 paypalRouter.get('/capture-order', captureOrder)
 
-paypalRouter.post('/create-order', testCreate)
+paypalRouter.post('/create-order', createOrder)
 
 module.exports = paypalRouter;

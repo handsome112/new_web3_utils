@@ -39,7 +39,7 @@
         const seller = document.getElementById('seller').value;
         const app_id = document.getElementById('app_id').value;
         console.log(amount, currency, seller, app_id)
-        const response = await fetch("/paypal/create-order", {
+        const response = await fetch("/masspay/create-order", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',

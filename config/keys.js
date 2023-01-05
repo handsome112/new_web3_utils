@@ -6,8 +6,14 @@ module.exports = {
         cookieKey: 'hello'
     },
     paypal: {
-        PAYPAL_API_CLIENT : 'AUegVphsqE-20voE0hc6oAyjZ3ywe6UIlSFklAAEUHmED82KaVWLGKTFPv5UwYiWFKse6iNTeGilSiNY',
-        PAYPAL_API_SECRET : 'EDpaIJoc2VttndPmHsH_BbgxoOq17DT_bEuLDH-Mlc9gnkrGHpya6pM73xtDO7y7HGtRyXtp36JuWKoL',
-        PAYPAL_API : 'https://api-m.sandbox.paypal.com'
+        USER_ID: 'sb-ucrfj24429783@business.example.com',
+        API_CLIENT : 'AZKEL8mXnDdMpEJA5q4yHVIdnJ6NlyC3q687quQP5Y2S5qdnjh_0uHPhtm5qDyPx1W2itAvRMObXOScL',
+        API_SECRET : 'EPe6cNDRTuY7KAFoPx_Bc9YymtiofKw4VQgj4ZF1r3tcQD7CyRKgVbmfmR0vU7bFDb_3i4e-GwtAC21p',
+        API : 'https://api-m.sandbox.paypal.com'
     }
+    // masspay: {
+    //     USER_ID: 'sb-ucrfj24429783@business.example.com',
+    //     MASS_API_CLIENT : 'AZKEL8mXnDdMpEJA5q4yHVIdnJ6NlyC3q687quQP5Y2S5qdnjh_0uHPhtm5qDyPx1W2itAvRMObXOScL',
+    //     MASS_API_SECRET : 'EPe6cNDRTuY7KAFoPx_Bc9YymtiofKw4VQgj4ZF1r3tcQD7CyRKgVbmfmR0vU7bFDb_3i4e-GwtAC21p'
+    // }
 }
