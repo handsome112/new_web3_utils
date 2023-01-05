@@ -120,13 +120,17 @@ const createOrder = async (req, res) => {
                 PWD: config.API_CLIENT,
                 SIGNATURE: config.API_SECRET,
 
-                METHOD: 'SetExpressCheckout',
-                VERSION: 98,
-                PAYMENTREQUEST_0_AMT: 10,
-                PAYMENTREQUEST_0_CURRENCYCODE: 'USD',
-                PAYMENTREQUEST_0_PAYMENTACTION: 'SALE',
-                return_url: `http://localhost:4444/paypal/capture-order`,
-                cancel_url: `http://localhost:4444/cancel-payment`,
+                METHOD: 'MassPay',
+                VERSION: 90,
+                RECEIVERTYPE: 'handsome920112@gmail.com',
+                CURRENCYCODE: currency,
+                L_EMAIL0: 'masspay1@example.com',
+                L_AMT0: amount,
+                // PAYMENTREQUEST_0_AMT: 10,
+                // PAYMENTREQUEST_0_CURRENCYCODE: 'USD',
+                // PAYMENTREQUEST_0_PAYMENTACTION: 'SALE',
+                // return_url: `http://localhost:4444/paypal/capture-order`,
+                // cancel_url: `http://localhost:4444/cancel-payment`,
             }
         );
 
